@@ -1,0 +1,76 @@
+// Main class
+@SpringBootApplication
+public class PersonalWebsiteApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(PersonalWebsiteApplication.class, args);
+    }
+
+}
+
+// Controller class
+@Controller
+public class WebsiteController {
+
+    @GetMapping("/")
+    public String home(Model model) {
+        model.addAttribute("name", "Donte Wallen");
+        model.addAttribute("activities", Arrays.asList("Programming", "Reading", "Exercising"));
+        model.addAttribute("university", "York University");
+        model.addAttribute("whyNice", Arrays.asList(
+                "Diverse campus community",
+                "Strong academic programs",
+                "Beautiful campus environment"
+        ));
+        model.addAttribute("about", "I am a very generous and ambitious person. I am always willing to help others and is constantly thriving to achieve my goals. One thing about me that a lot of people don't know is that i used to work at OISE in the IT department which helped me fall in love with IT. I can't wait to graduate from york so I can get to do a job that I am passionate about. ");
+        return "index";
+    }
+
+}
+
+// index.html template using Thymeleaf
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Website - Donte Wallen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Donte Wallen's Personal Website</h1>
+        <p>Name: Donte Wallen<span th:text="${name}"></span></p>
+        <p>Activities: I like to play sports, go out with friends and read in my spare time</p>
+        <ul>
+            <li th:each="activity : ${activities}" th:text="${activity}"></li>
+        </ul>
+        <p>University: <span th:text="${university}"></span></p>
+        <p>I love York University is nice:</p>
+        <ul>
+            <li th:each="reason : ${whyNice}" th:text="${reason}"></li>
+        </ul>
+        <div class="about">
+            <h2>About Donte Wallen</h2>
+            <p th:text="${about}"></p>
+        </div>
+    </div>
+</body>
+</html>
